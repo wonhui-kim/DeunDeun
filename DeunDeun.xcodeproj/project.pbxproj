@@ -62,11 +62,11 @@
 		A7DCE33F2A20A49D00FC0981 /* DeunDeun */ = {
 			isa = PBXGroup;
 			children = (
-				A7DCE35D2A2235AA00FC0981 /* Manager */,
+				A7DCE3602A25C50D00FC0981 /* ViewController */,
+				A7DCE35D2A2235AA00FC0981 /* Service */,
 				A7DCE35A2A2231AF00FC0981 /* Model */,
 				A7DCE3402A20A49D00FC0981 /* AppDelegate.swift */,
 				A7DCE3422A20A49D00FC0981 /* SceneDelegate.swift */,
-				A7DCE3442A20A49D00FC0981 /* ViewController.swift */,
 				A7DCE34C2A20A49E00FC0981 /* Assets.xcassets */,
 				A7DCE34E2A20A49E00FC0981 /* LaunchScreen.storyboard */,
 				A7DCE3512A20A49E00FC0981 /* Info.plist */,
@@ -83,13 +83,21 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		A7DCE35D2A2235AA00FC0981 /* Manager */ = {
+		A7DCE35D2A2235AA00FC0981 /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				A7DCE3582A20A55E00FC0981 /* NetworkManager.swift */,
 				A7DCE35E2A2235B500FC0981 /* DateManager.swift */,
 			);
-			path = Manager;
+			path = Service;
+			sourceTree = "<group>";
+		};
+		A7DCE3602A25C50D00FC0981 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A7DCE3442A20A49D00FC0981 /* ViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
