@@ -45,7 +45,6 @@ class DateManager {
         let dateString = dateFormatter.string(from: today).split(separator: " ").map {
             String($0)
         }
-//        print(dateString) //["2023.05.31", "수"]
         
         if dateString[1] == "토" {
             return dateString[0]
@@ -86,6 +85,27 @@ class DateManager {
         }
         
         return dateList
+    }
+    
+    //월이면 0, ... 금이면 4 인덱스 반환
+    func todayIndex() -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E"
+        
+        let todayString = dateFormatter.string(from: Date())
+        
+        switch todayString { //일, 월요일 -> 월요일 식단, 금, 토요일 -> 금요일 식단
+        case "일", "월":
+            return 0
+        case "화":
+            return 1
+        case "수":
+            return 2
+        case "목":
+            return 3
+        default:
+            return 4
+        }
     }
 }
 
