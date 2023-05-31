@@ -16,6 +16,9 @@
 		A7DCE3592A20A55E00FC0981 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCE3582A20A55E00FC0981 /* NetworkManager.swift */; };
 		A7DCE35C2A2231CA00FC0981 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCE35B2A2231CA00FC0981 /* Menu.swift */; };
 		A7DCE35F2A2235B500FC0981 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCE35E2A2235B500FC0981 /* DateManager.swift */; };
+		A7DCE3652A25CF7B00FC0981 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCE3642A25CF7B00FC0981 /* MenuView.swift */; };
+		A7DCE3672A25CFD600FC0981 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCE3662A25CFD600FC0981 /* MenuTableViewCell.swift */; };
+		A7DCE36B2A26D79A00FC0981 /* DateUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCE36A2A26D79A00FC0981 /* DateUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		A7DCE3582A20A55E00FC0981 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A7DCE35B2A2231CA00FC0981 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		A7DCE35E2A2235B500FC0981 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		A7DCE3642A25CF7B00FC0981 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		A7DCE3662A25CFD600FC0981 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		A7DCE36A2A26D79A00FC0981 /* DateUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,7 @@
 		A7DCE33F2A20A49D00FC0981 /* DeunDeun */ = {
 			isa = PBXGroup;
 			children = (
+				A7DCE3612A25CF5C00FC0981 /* View */,
 				A7DCE3602A25C50D00FC0981 /* ViewController */,
 				A7DCE35D2A2235AA00FC0981 /* Service */,
 				A7DCE35A2A2231AF00FC0981 /* Model */,
@@ -98,6 +105,16 @@
 				A7DCE3442A20A49D00FC0981 /* ViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		A7DCE3612A25CF5C00FC0981 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A7DCE3642A25CF7B00FC0981 /* MenuView.swift */,
+				A7DCE3662A25CFD600FC0981 /* MenuTableViewCell.swift */,
+				A7DCE36A2A26D79A00FC0981 /* DateUIView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,11 +188,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7DCE35F2A2235B500FC0981 /* DateManager.swift in Sources */,
+				A7DCE3652A25CF7B00FC0981 /* MenuView.swift in Sources */,
 				A7DCE35C2A2231CA00FC0981 /* Menu.swift in Sources */,
 				A7DCE3452A20A49D00FC0981 /* ViewController.swift in Sources */,
 				A7DCE34B2A20A49D00FC0981 /* DeunDeun.xcdatamodeld in Sources */,
+				A7DCE3672A25CFD600FC0981 /* MenuTableViewCell.swift in Sources */,
 				A7DCE3592A20A55E00FC0981 /* NetworkManager.swift in Sources */,
 				A7DCE3412A20A49D00FC0981 /* AppDelegate.swift in Sources */,
+				A7DCE36B2A26D79A00FC0981 /* DateUIView.swift in Sources */,
 				A7DCE3432A20A49D00FC0981 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
