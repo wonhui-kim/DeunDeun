@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MenuTableView: UIView {
+final class MenuTableView: UIView {
     
     private var staffMeal = [String]()
     private var studentMeal = [String]()

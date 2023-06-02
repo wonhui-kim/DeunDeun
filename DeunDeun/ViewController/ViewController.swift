@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    private let dateUIView = DateUIView()
     private let menuTableView = MenuTableView()
     
     override func viewDidLoad() {
@@ -44,18 +45,29 @@ class ViewController: UIViewController {
 //view layout 관련 함수
 extension ViewController {
     private func configureUI() {
-        menuTableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(menuTableView)
+        [dateUIView, menuTableView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
     }
     
     private func setupLayout() {
+        let dateUIViewConstraints = [
+            dateUIView.topAnchor.constraint(equalTo: view.topAnchor),
+            dateUIView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dateUIView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dateUIView.heightAnchor.constraint(equalToConstant: view.frame.height * 1/5)
+        ]
+        
         let menuTableViewConstraints = [
-            menuTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            menuTableView.topAnchor.constraint(equalTo: dateUIView.bottomAnchor),
             menuTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             menuTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             menuTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         
-        NSLayoutConstraint.activate(menuTableViewConstraints)
+        [dateUIViewConstraints, menuTableViewConstraints].forEach {
+            NSLayoutConstraint.activate($0)
+        }
     }
 }

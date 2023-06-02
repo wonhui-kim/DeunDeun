@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DateManager {
+final class DateManager {
     
     static let shared = DateManager()
     
