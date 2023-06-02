@@ -20,42 +20,42 @@ class NetworkManager {
     
     private init() { }
     
-    func requestData(url: String, parameters: [String:String]) async throws -> [String] {
-
-        guard let url = URL(string: url) else {
-            throw FetchError.invalidURL
-        }
-
-        let formDataString = parameters.map { "\($0)=\($1)" }.joined(separator: "&")
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        let requestBody = formDataString.data(using: .utf8)
-        request.httpBody = requestBody
-
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw FetchError.invalidStatusCode
-        }
-
-        guard let response = try? JSONDecoder().decode(CafeteriaResponse.self, from: data) else {
-            throw FetchError.invalidData
-        }
-
-        var results = [String]()
-
-        response.cafeteriaList.forEach { menu in
-            if (31...35).contains(menu.type) {
-                guard let eachMenu = menu.content else {
-                    results.append("오늘은 운영하지 않아요 🥲")
-                    return
-                }
-                results.append(eachMenu)
-            }
-        }
-
-        return results
-    }
+//    func requestData(url: String, parameters: [String:String]) async throws -> [String] {
+//
+//        guard let url = URL(string: url) else {
+//            throw FetchError.invalidURL
+//        }
+//
+//        let formDataString = parameters.map { "\($0)=\($1)" }.joined(separator: "&")
+//
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        let requestBody = formDataString.data(using: .utf8)
+//        request.httpBody = requestBody
+//
+//        let (data, response) = try await URLSession.shared.data(for: request)
+//        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+//            throw FetchError.invalidStatusCode
+//        }
+//
+//        guard let response = try? JSONDecoder().decode(CafeteriaResponse.self, from: data) else {
+//            throw FetchError.invalidData
+//        }
+//
+//        var results = [String]()
+//
+//        response.cafeteriaList.forEach { menu in
+//            if (31...35).contains(menu.type) {
+//                guard let eachMenu = menu.content else {
+//                    results.append("오늘은 운영하지 않아요 🥲")
+//                    return
+//                }
+//                results.append(eachMenu)
+//            }
+//        }
+//
+//        return results
+//    }
     
     //오늘의 식단 데이터
     func requestTodayData(url: String, parameters: [String:String]) async throws -> [String] {
@@ -112,11 +112,11 @@ class NetworkManager {
         
         var menu = [String]()
         
-        for eachMenu in wholeMenu {
-            if eachMenu.contains("학생") {
+        for i in stride(from: 1, to: wholeMenu.count, by: 1) {
+            if wholeMenu[i].contains("학생") {
                 break
             }
-            menu.append(eachMenu)
+            menu.append(wholeMenu[i])
         }
         
         return menu
