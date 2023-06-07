@@ -25,13 +25,14 @@ class ViewController: UIViewController {
         
         Task {
             do {
-                let todayMenu = try await NetworkManager.shared.requestTodayData(url: url, parameters: startEndDate)
-//                print(todayMenu)
-                let staffMenu = NetworkManager.shared.requestStaffMeal(wholeMenu: todayMenu)
-                print(staffMenu)
+                let result = try await NetworkManager.shared.requestData(url: url, parameters: startEndDate)
                 
-                let studentMenu = NetworkManager.shared.requestStudentMeal(wholeMenu: todayMenu, startIndex: staffMenu.count+1)
-                print(studentMenu)
+                //일주일 치 저장
+                MenuStorage.shared.saveWeekMenus(menus: result)
+                
+                let todayIndex = DateManager.shared.todayIndex()
+                let staffMenu = MenuStorage.shared.dayStaffMenu(dayIndex: todayIndex)
+                let studentMenu = MenuStorage.shared.dayStudentMenu(dayIndex: todayIndex)
                 
                 menuTableView.reloadTable(staffMenu: staffMenu, studentMenu: studentMenu)
                 

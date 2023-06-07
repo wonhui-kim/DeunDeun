@@ -64,7 +64,7 @@ final class DateManager {
         return "no result"
     }
     
-    //월,화,수,목,금 날짜(뒷자리)만 반환 -> 캐러셀 용도
+    //이번주 월,화,수,목,금 날짜(뒷자리)만 반환 -> 캐러셀 용도
     func weekDate(startDate: String) -> [String] {
         
         let dateFormatter = DateFormatter()
@@ -107,5 +107,6 @@ final class DateManager {
             return 4
         }
     }
+    
 }
 

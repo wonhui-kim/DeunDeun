@@ -16,8 +16,8 @@ final class MenuStorage {
     private var staffMenus: [[String]] = Array(repeating: [], count: 5)
     private var studentMenus: [[String]] = Array(repeating: [], count: 5)
     
+    //네트워크로부터 불러온 raw데이터를 가공하여 교직원, 학생 일주일치 메뉴로 저장
     func saveWeekMenus(menus: [String]) {
-        
         var wholeMenus = [[String]]()
         
         menus.forEach { menu in
