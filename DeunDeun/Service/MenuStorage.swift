@@ -33,7 +33,7 @@ final class MenuStorage {
     
     func saveStaffMenus(menus: [[String]]) {
         for i in stride(from: 0, to: menus.count, by: 1) {
-            if menus[i].isEmpty {
+            if menus[i].count <= 1 {
                 staffMenus[i] = ["오늘은 운영하지 않아요 🥲"]
             } else {
                 var menu = [String]()
@@ -52,7 +52,7 @@ final class MenuStorage {
     
     func saveStudentMenus(menus: [[String]]) {
         for i in stride(from: 0, to: menus.count, by: 1) {
-            if menus[i].isEmpty {
+            if menus[i].count <= 1 {
                 studentMenus[i] = ["오늘은 운영하지 않아요 🥲"]
             } else {
                 var menu = [String]()
@@ -74,10 +74,12 @@ final class MenuStorage {
     }
     
     func dayStaffMenu(dayIndex: Int) -> [String] {
+        print(staffMenus)
         return staffMenus[dayIndex]
     }
     
     func dayStudentMenu(dayIndex: Int) -> [String] {
+        print(studentMenus)
         return studentMenus[dayIndex]
     }
 }

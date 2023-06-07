@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         setupLayout()
         
         view.backgroundColor = .systemBackground
+        dateUIView.delegate = self
         
         let url = "https://www.dongduk.ac.kr/ajax/etc/cafeteria/cafeteria_data.json?"
         let startEndDate = DateManager.shared.endDate(startDate: DateManager.shared.startDate())
@@ -70,5 +71,17 @@ extension ViewController {
         [dateUIViewConstraints, menuTableViewConstraints].forEach {
             NSLayoutConstraint.activate($0)
         }
+    }
+}
+
+extension ViewController: DateUIViewDelegate {
+    func buttonTapped(index: Int) {
+        let staffMenu = MenuStorage.shared.dayStaffMenu(dayIndex: index)
+        let studentMenu = MenuStorage.shared.dayStudentMenu(dayIndex: index)
+        
+        print(staffMenu)
+        print(studentMenu)
+        
+        menuTableView.reloadTable(staffMenu: staffMenu, studentMenu: studentMenu)
     }
 }

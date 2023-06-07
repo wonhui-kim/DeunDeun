@@ -7,11 +7,19 @@
 
 import UIKit
 
+protocol DateUIViewDelegate: AnyObject {
+    func buttonTapped(index: Int)
+}
+
 final class DateUIView: UIView {
+    
+    //weak, AnyObject 사용 이유
+    weak var delegate: DateUIViewDelegate?
     
     private let days = ["월", "화", "수", "목", "금"]
     private let startDate = DateManager.shared.startDate()
     private lazy var dates = DateManager.shared.weekDate(startDate: startDate)
+    private let todayIndex = DateManager.shared.todayIndex()
     
     //월화수목금 UILabel 생성
     private lazy var dayLabels: [UILabel] = days.map {
@@ -27,6 +35,8 @@ final class DateUIView: UIView {
         let button = UIButton()
         button.setTitle($0, for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .selected)
+        button.addTarget(self, action: #selector(dateButtonTapped(_:)), for: .touchUpInside)
         return button
     }
     
@@ -48,6 +58,11 @@ final class DateUIView: UIView {
         
         configureUI()
         setupLayout()
+        
+        //버튼 태그 설정
+        for i in 0..<dateButtons.count {
+            dateButtons[i].tag = i
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -58,6 +73,7 @@ final class DateUIView: UIView {
 
 //view layout 관련 함수
 extension DateUIView {
+    
     func configureUI() {
         [dayStackView, dateStackView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +89,6 @@ extension DateUIView {
             $0.translatesAutoresizingMaskIntoConstraints = false
             dateStackView.addArrangedSubview($0)
         }
-        
     }
 
     func setupLayout() {
@@ -83,6 +98,7 @@ extension DateUIView {
             dayStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             dayStackView.heightAnchor.constraint(equalToConstant: 50)
         ]
+        
         let dateStackViewConstraints = [
             dateStackView.topAnchor.constraint(equalTo: dayStackView.bottomAnchor),
             dateStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -93,5 +109,16 @@ extension DateUIView {
         [dayStackViewConstraints, dateStackViewConstraints].forEach {
             NSLayoutConstraint.activate($0)
         }
+    }
+    
+}
+
+//기타 함수
+extension DateUIView {
+    //버튼 클릭 시 태그에 따른 식단 호출
+    @objc
+    func dateButtonTapped(_ sender: UIButton) {
+        let tag = sender.tag
+        delegate?.buttonTapped(index: tag)
     }
 }
