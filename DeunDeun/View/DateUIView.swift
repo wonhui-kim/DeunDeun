@@ -63,6 +63,8 @@ final class DateUIView: UIView {
         for i in 0..<dateButtons.count {
             dateButtons[i].tag = i
         }
+        dateButtons[todayIndex].isSelected = true
+        dateButtons[todayIndex].backgroundColor = UIColor(named: "PointColor")
     }
     
     required init?(coder: NSCoder) {
@@ -120,5 +122,15 @@ extension DateUIView {
     func dateButtonTapped(_ sender: UIButton) {
         let tag = sender.tag
         delegate?.buttonTapped(index: tag)
+        
+        //선택된 버튼의 background를 pointcolor로 변경
+        //선택된 버튼이 이미 존재하는지 확인
+        if let selectedButton = dateButtons.firstIndex(where: { $0.isSelected }) {
+            dateButtons[selectedButton].isSelected = false
+            dateButtons[selectedButton].backgroundColor = .clear
+        }
+        
+        sender.isSelected = true
+        sender.backgroundColor = UIColor(named: "PointColor")
     }
 }

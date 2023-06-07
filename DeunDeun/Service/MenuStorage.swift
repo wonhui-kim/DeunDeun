@@ -74,12 +74,10 @@ final class MenuStorage {
     }
     
     func dayStaffMenu(dayIndex: Int) -> [String] {
-        print(staffMenus)
         return staffMenus[dayIndex]
     }
     
     func dayStudentMenu(dayIndex: Int) -> [String] {
-        print(studentMenus)
         return studentMenus[dayIndex]
     }
 }

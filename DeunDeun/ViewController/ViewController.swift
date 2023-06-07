@@ -79,9 +79,6 @@ extension ViewController: DateUIViewDelegate {
         let staffMenu = MenuStorage.shared.dayStaffMenu(dayIndex: index)
         let studentMenu = MenuStorage.shared.dayStudentMenu(dayIndex: index)
         
-        print(staffMenu)
-        print(studentMenu)
-        
         menuTableView.reloadTable(staffMenu: staffMenu, studentMenu: studentMenu)
     }
 }
