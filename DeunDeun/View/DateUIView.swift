@@ -36,6 +36,7 @@ final class DateUIView: UIView {
         button.setTitle($0, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setTitleColor(.white, for: .selected)
+        button.layer.cornerRadius = 13
         button.addTarget(self, action: #selector(dateButtonTapped(_:)), for: .touchUpInside)
         return button
     }
@@ -95,16 +96,16 @@ extension DateUIView {
 
     func setupLayout() {
         let dayStackViewConstraints = [
-            dayStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            dayStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            dayStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            dayStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            dayStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            dayStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             dayStackView.heightAnchor.constraint(equalToConstant: 50)
         ]
         
         let dateStackViewConstraints = [
             dateStackView.topAnchor.constraint(equalTo: dayStackView.bottomAnchor),
-            dateStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            dateStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            dateStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            dateStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             dateStackView.heightAnchor.constraint(equalToConstant: 50)
         ]
         

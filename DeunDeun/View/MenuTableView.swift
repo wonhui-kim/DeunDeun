@@ -57,7 +57,7 @@ extension MenuTableView: UITableViewDataSource {
         case 1:
             cell.textLabel?.text = studentMeal[indexPath.row]
         default:
-            UITableViewCell()
+            return UITableViewCell()
         }
         
         cell.textLabel?.textAlignment = .center
@@ -115,7 +115,6 @@ extension MenuTableView {
         mealTable.translatesAutoresizingMaskIntoConstraints = false
         addSubview(mealTable)
         mealTable.backgroundColor = UIColor(named: "PointColor")
-        mealTable.layer.cornerRadius = 22
         mealTable.separatorStyle = .none //행 구분선 제거
         mealTable.allowsSelection = false //행 선택 불가
     }

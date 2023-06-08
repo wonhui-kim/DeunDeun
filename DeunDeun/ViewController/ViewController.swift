@@ -55,10 +55,10 @@ extension ViewController {
     
     private func setupLayout() {
         let dateUIViewConstraints = [
-            dateUIView.topAnchor.constraint(equalTo: view.topAnchor),
+            dateUIView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             dateUIView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dateUIView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            dateUIView.heightAnchor.constraint(equalToConstant: view.frame.height * 1/5)
+            dateUIView.heightAnchor.constraint(equalToConstant: 116)
         ]
         
         let menuTableViewConstraints = [
