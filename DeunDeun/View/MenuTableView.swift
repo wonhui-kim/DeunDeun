@@ -14,6 +14,7 @@ final class MenuTableView: UIView {
 
     private lazy var mealTable: UITableView = {
         let table = UITableView()
+        table.showsVerticalScrollIndicator = false
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         table.register(TableSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
         return table
