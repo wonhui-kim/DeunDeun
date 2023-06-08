@@ -22,33 +22,41 @@ class ViewController: UIViewController {
         dateUIView.delegate = self
         
         let startEndDate = DateManager.shared.startEndDate()
-        fetchData(parameter: startEndDate)
+        fetchData(parameters: startEndDate)
     }
 }
 
 extension ViewController {
     //파라미터 date를 넣으면 일주일간의 데이터를 호출하고, 각 식단을 저장한 후, tableView 리로드
-    func fetchData(parameter: [String:String]) {
+    func fetchData(parameters: [String:String]) {
         Task {
-            let url = "https://www.dongduk.ac.kr/ajax/etc/cafeteria/cafeteria_data.json?"
-            
             do {
-                let result = try await NetworkManager.shared.requestData(url: url, parameters: parameter)
-                
-                //일주일 치 저장
-                MenuStorage.shared.saveWeekMenus(menus: result)
-                
-                let todayIndex = DateManager.shared.todayIndex()
-                let staffMenu = MenuStorage.shared.dayStaffMenu(dayIndex: todayIndex)
-                let studentMenu = MenuStorage.shared.dayStudentMenu(dayIndex: todayIndex)
-                
-                menuTableView.reloadTable(staffMenu: staffMenu, studentMenu: studentMenu)
-                
+                let result = try await requestMenus(parameters: parameters)
+                handleMenus(result)
             } catch let error as NSError {
                 print(error)
                 //네트워크 에러 -> 앱 재실행 요청 문구 띄우기
             }
         }
+    }
+    
+    func requestMenus(parameters: [String:String]) async throws -> [String] {
+        let url = "https://www.dongduk.ac.kr/ajax/etc/cafeteria/cafeteria_data.json?"
+        
+        let result = try await NetworkManager.shared.requestData(url: url, parameters: parameters)
+        
+        //일주일 치 저장
+        MenuStorage.shared.saveWeekMenus(menus: result)
+        
+        return result
+    }
+    
+    func handleMenus(_ result: [String]) {
+        let todayIndex = DateManager.shared.todayIndex()
+        let staffMenu = MenuStorage.shared.dayStaffMenu(dayIndex: todayIndex)
+        let studentMenu = MenuStorage.shared.dayStudentMenu(dayIndex: todayIndex)
+        
+        menuTableView.reloadTable(staffMenu: staffMenu, studentMenu: studentMenu)
     }
 }
 
@@ -84,7 +92,7 @@ extension ViewController {
 
 extension ViewController: DateUIViewDelegate {
     func renewWeekData(parameter: [String : String]) {
-        fetchData(parameter: parameter)
+        fetchData(parameters: parameter)
     }
     
     func updateMenu(index: Int) {

@@ -169,16 +169,17 @@ extension DateUIView {
             let dates = DateManager.shared.weekDate()
             updateDateButtons(dates: dates)
             
-            //모든 식단 데이터 다시 가져오기
+            //모든 식단 데이터 다시 가져와서 오늘 날짜로 테이블 뷰 업데이트
             let startEndDate = DateManager.shared.startEndDate()
             delegate?.renewWeekData(parameter: startEndDate)
+        } else {
+            //오늘 날짜로 date button selected
+            let todayIndex = DateManager.shared.todayIndex()
+            defaultButtonTapped(todayIndex: todayIndex)
+            
+            //오늘 날짜 식단 보여주기
+            delegate?.updateMenu(index: todayIndex)
         }
         
-        //오늘 날짜로 date button selected
-        let todayIndex = DateManager.shared.todayIndex()
-        defaultButtonTapped(todayIndex: todayIndex)
-        
-        //오늘 날짜 식단 보여주기
-        delegate?.updateMenu(index: todayIndex)
     }
 }
