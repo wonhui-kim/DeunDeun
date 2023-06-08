@@ -59,13 +59,7 @@ final class DateUIView: UIView {
         
         configureUI()
         setupLayout()
-        
-        //버튼 태그 설정
-        for i in 0..<dateButtons.count {
-            dateButtons[i].tag = i
-        }
-        dateButtons[todayIndex].isSelected = true
-        dateButtons[todayIndex].backgroundColor = UIColor(named: "PointColor")
+        initialButtonStatus()
     }
     
     required init?(coder: NSCoder) {
@@ -133,5 +127,14 @@ extension DateUIView {
         
         sender.isSelected = true
         sender.backgroundColor = UIColor(named: "PointColor")
+    }
+    
+    func initialButtonStatus() {
+        //버튼 태그 설정
+        for i in 0..<dateButtons.count {
+            dateButtons[i].tag = i
+        }
+        dateButtons[todayIndex].isSelected = true
+        dateButtons[todayIndex].backgroundColor = UIColor(named: "PointColor")
     }
 }
