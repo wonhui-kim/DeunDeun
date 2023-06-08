@@ -65,14 +65,6 @@ final class MenuStorage {
         }
     }
     
-    func weekStaffMenus() -> [[String]] {
-        return staffMenus
-    }
-    
-    func weekStudentMenus() -> [[String]] {
-        return studentMenus
-    }
-    
     func dayStaffMenu(dayIndex: Int) -> [String] {
         return staffMenus[dayIndex]
     }

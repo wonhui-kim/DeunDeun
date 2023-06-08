@@ -14,7 +14,6 @@ final class DateManager {
     private init() { }
     
     //토요일날짜를 넣으면 다음 금요일 날짜와 함께 반환 (startdate와 enddate 반환)
-    //yyyy.MM.dd E - changed
     func startEndDate() -> [String:String] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
@@ -67,7 +66,7 @@ final class DateManager {
         return "no result"
     }
     
-    //이번주 월,화,수,목,금 날짜(뒷자리)만 반환 -> 캐러셀 용도
+    //이번주 월,화,수,목,금 날짜(뒷자리)만 반환 -> 날짜 버튼 title 나타내기 위한 용도
     func weekDate() -> [String] {
         let startDateString = startDate() //시작 날짜 받아옴
         
