@@ -21,12 +21,19 @@ class ViewController: UIViewController {
         view.backgroundColor = .systemBackground
         dateUIView.delegate = self
         
-        let url = "https://www.dongduk.ac.kr/ajax/etc/cafeteria/cafeteria_data.json?"
-        let startEndDate = DateManager.shared.endDate(startDate: DateManager.shared.startDate())
-        
+        let startEndDate = DateManager.shared.startEndDate()
+        fetchData(parameter: startEndDate)
+    }
+}
+
+extension ViewController {
+    //파라미터 date를 넣으면 일주일간의 데이터를 호출하고, 각 식단을 저장한 후, tableView 리로드
+    func fetchData(parameter: [String:String]) {
         Task {
+            let url = "https://www.dongduk.ac.kr/ajax/etc/cafeteria/cafeteria_data.json?"
+            
             do {
-                let result = try await NetworkManager.shared.requestData(url: url, parameters: startEndDate)
+                let result = try await NetworkManager.shared.requestData(url: url, parameters: parameter)
                 
                 //일주일 치 저장
                 MenuStorage.shared.saveWeekMenus(menus: result)
@@ -39,6 +46,7 @@ class ViewController: UIViewController {
                 
             } catch let error as NSError {
                 print(error)
+                //네트워크 에러 -> 앱 재실행 요청 문구 띄우기
             }
         }
     }
@@ -75,7 +83,11 @@ extension ViewController {
 }
 
 extension ViewController: DateUIViewDelegate {
-    func buttonTapped(index: Int) {
+    func renewWeekData(parameter: [String : String]) {
+        fetchData(parameter: parameter)
+    }
+    
+    func updateMenu(index: Int) {
         let staffMenu = MenuStorage.shared.dayStaffMenu(dayIndex: index)
         let studentMenu = MenuStorage.shared.dayStudentMenu(dayIndex: index)
         

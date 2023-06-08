@@ -14,19 +14,22 @@ final class DateManager {
     private init() { }
     
     //토요일날짜를 넣으면 다음 금요일 날짜와 함께 반환 (startdate와 enddate 반환)
-    func endDate(startDate: String) -> [String:String] {
+    //yyyy.MM.dd E - changed
+    func startEndDate() -> [String:String] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
+        
+        let startDate = startDate()
         
         let parameter = startDate.split(separator: ".").map {
             Int(String($0))
         }
         
         let dateComponents = DateComponents(year: parameter[0], month: parameter[1], day: parameter[2])
-        let startDate = Calendar.current.date(from: dateComponents)!
-        let startDateString = dateFormatter.string(from: startDate)
+        let tempDate = Calendar.current.date(from: dateComponents)!
+        let startDateString = dateFormatter.string(from: tempDate)
         
-        let add6Days = Calendar.current.date(byAdding: .day, value: 6, to: startDate)!
+        let add6Days = Calendar.current.date(byAdding: .day, value: 6, to: tempDate)!
         let endDateString = dateFormatter.string(from: add6Days)
         
         //["STARTDATE": "20230527", "ENDDATE": "20230602"]
@@ -65,13 +68,14 @@ final class DateManager {
     }
     
     //이번주 월,화,수,목,금 날짜(뒷자리)만 반환 -> 캐러셀 용도
-    func weekDate(startDate: String) -> [String] {
+    func weekDate() -> [String] {
+        let startDateString = startDate() //시작 날짜 받아옴
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd" //뒤에 날짜만 필요함
         
         //2023.05.27(startDate) 를 2023 05 27로 분리
-        let parameter = startDate.split(separator: ".").map {
+        let parameter = startDateString.split(separator: ".").map {
             Int(String($0))
         }
         //시작일(날짜)를 Date 타입으로 변환
@@ -87,12 +91,19 @@ final class DateManager {
         return dateList
     }
     
-    //월이면 0, ... 금이면 4 인덱스 반환
-    func todayIndex() -> Int {
+    func today() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E"
         
-        let todayString = dateFormatter.string(from: Date())
+        let today = dateFormatter.string(from: Date())
+        
+        return today
+    }
+    
+    //월이면 0, ... 금이면 4 인덱스 반환
+    func todayIndex() -> Int {
+        
+        let todayString = today()
         
         switch todayString { //일, 월요일 -> 월요일 식단, 금, 토요일 -> 금요일 식단
         case "일", "월":
@@ -103,7 +114,7 @@ final class DateManager {
             return 2
         case "목":
             return 3
-        default:
+        default: //금, 토
             return 4
         }
     }

@@ -8,7 +8,8 @@
 import UIKit
 
 protocol DateUIViewDelegate: AnyObject {
-    func buttonTapped(index: Int)
+    func updateMenu(index: Int)
+    func renewWeekData(parameter: [String:String])
 }
 
 final class DateUIView: UIView {
@@ -17,9 +18,7 @@ final class DateUIView: UIView {
     weak var delegate: DateUIViewDelegate?
     
     private let days = ["월", "화", "수", "목", "금"]
-    private let startDate = DateManager.shared.startDate()
-    private lazy var dates = DateManager.shared.weekDate(startDate: startDate)
-    private let todayIndex = DateManager.shared.todayIndex()
+    private lazy var dates = DateManager.shared.weekDate()
     
     //월화수목금 UILabel 생성
     private lazy var dayLabels: [UILabel] = days.map {
@@ -60,6 +59,8 @@ final class DateUIView: UIView {
         configureUI()
         setupLayout()
         initialButtonStatus()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(dayChanged(_:)), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -116,7 +117,8 @@ extension DateUIView {
     @objc
     func dateButtonTapped(_ sender: UIButton) {
         let tag = sender.tag
-        delegate?.buttonTapped(index: tag)
+        
+        delegate?.updateMenu(index: tag)
         
         //선택된 버튼의 background를 pointcolor로 변경
         //선택된 버튼이 이미 존재하는지 확인
@@ -129,12 +131,54 @@ extension DateUIView {
         sender.backgroundColor = UIColor(named: "PointColor")
     }
     
+    //초기 버튼 세팅
     func initialButtonStatus() {
         //버튼 태그 설정
         for i in 0..<dateButtons.count {
             dateButtons[i].tag = i
         }
+        
+        let todayIndex = DateManager.shared.todayIndex()
+        defaultButtonTapped(todayIndex: todayIndex)
+    }
+    
+    //default로 selected된 버튼
+    func defaultButtonTapped(todayIndex: Int) {
+        //선택된 버튼이 이미 존재하는지 확인
+        if let selectedButton = dateButtons.firstIndex(where: { $0.isSelected }) {
+            dateButtons[selectedButton].isSelected = false
+            dateButtons[selectedButton].backgroundColor = .clear
+        }
+        
         dateButtons[todayIndex].isSelected = true
         dateButtons[todayIndex].backgroundColor = UIColor(named: "PointColor")
+    }
+    
+    func updateDateButtons(dates: [String]) {
+        for i in 0..<dateButtons.count {
+            dateButtons[i].setTitle(dates[i], for: .normal)
+        }
+    }
+    
+    @objc
+    func dayChanged(_ notification: Notification) {
+        let today = DateManager.shared.today()
+        
+        if today == "일" || today == "월" {
+            //dates buttons 날짜 모두 업데이트
+            let dates = DateManager.shared.weekDate()
+            updateDateButtons(dates: dates)
+            
+            //모든 식단 데이터 다시 가져오기
+            let startEndDate = DateManager.shared.startEndDate()
+            delegate?.renewWeekData(parameter: startEndDate)
+        }
+        
+        //오늘 날짜로 date button selected
+        let todayIndex = DateManager.shared.todayIndex()
+        defaultButtonTapped(todayIndex: todayIndex)
+        
+        //오늘 날짜 식단 보여주기
+        delegate?.updateMenu(index: todayIndex)
     }
 }

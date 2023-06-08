@@ -37,14 +37,12 @@ final class NetworkManager {
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw FetchError.invalidStatusCode
         }
-
-        guard let response = try? JSONDecoder().decode(CafeteriaResponse.self, from: data) else {
-            throw FetchError.invalidData
-        }
+        
+        let cafeteriaResponse = try JSONDecoder().decode(CafeteriaResponse.self, from: data)
 
         var results = [String]()
 
-        response.cafeteriaList.forEach { menu in
+        cafeteriaResponse.cafeteriaList.forEach { menu in
             if (31...35).contains(menu.type) {
                 guard let eachMenu = menu.content else {
                     results.append("오늘은 운영하지 않아요 🥲")
