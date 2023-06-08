@@ -15,6 +15,7 @@ final class MenuTableView: UIView {
     private lazy var mealTable: UITableView = {
         let table = UITableView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(TableSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
         return table
     }()
     
@@ -80,12 +81,18 @@ extension MenuTableView: UITableViewDataSource {
 }
 
 extension MenuTableView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? TableSectionHeader else {
+            return UIView()
+        }
+        
+        header.configureSectionHeader(with: section)
+        return header
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Section Header"
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
     }
     
     //각 행 높이 조절
