@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A74BA1652A3187C700A4363D /* TableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74BA1642A3187C700A4363D /* TableSectionHeader.swift */; };
 		A7DCE3412A20A49D00FC0981 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCE3402A20A49D00FC0981 /* AppDelegate.swift */; };
 		A7DCE3432A20A49D00FC0981 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCE3422A20A49D00FC0981 /* SceneDelegate.swift */; };
 		A7DCE3452A20A49D00FC0981 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCE3442A20A49D00FC0981 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A74BA1642A3187C700A4363D /* TableSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionHeader.swift; sourceTree = "<group>"; };
 		A7DCE33D2A20A49D00FC0981 /* DeunDeun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeunDeun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DCE3402A20A49D00FC0981 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7DCE3422A20A49D00FC0981 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			children = (
 				A7DCE3642A25CF7B00FC0981 /* MenuTableView.swift */,
 				A7DCE36A2A26D79A00FC0981 /* DateUIView.swift */,
+				A74BA1642A3187C700A4363D /* TableSectionHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				A7DCE35F2A2235B500FC0981 /* DateManager.swift in Sources */,
 				A7DCE3652A25CF7B00FC0981 /* MenuTableView.swift in Sources */,
 				A7E0ADB62A30644C00AF875B /* MenuStorage.swift in Sources */,
+				A74BA1652A3187C700A4363D /* TableSectionHeader.swift in Sources */,
 				A7DCE35C2A2231CA00FC0981 /* Menu.swift in Sources */,
 				A7DCE3452A20A49D00FC0981 /* ViewController.swift in Sources */,
 				A7DCE34B2A20A49D00FC0981 /* DeunDeun.xcdatamodeld in Sources */,
