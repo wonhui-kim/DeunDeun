@@ -7,10 +7,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     private let dateUIView = DateUIView()
     private let menuTableView = MenuTableView()
+    
+    private let dateManager = DateManager.shared
+    private let menuStorage = MenuStorage.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +24,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .systemBackground
         dateUIView.delegate = self
         
-        let startEndDate = DateManager.shared.startEndDate()
+        let startEndDate = dateManager.startEndDate()
         fetchData(parameters: startEndDate)
     }
 }
@@ -46,15 +49,15 @@ extension ViewController {
         let result = try await NetworkManager.shared.requestData(url: url, parameters: parameters)
         
         //일주일 치 저장
-        MenuStorage.shared.saveWeekMenus(menus: result)
+        menuStorage.saveWeekMenus(menus: result)
         
         return result
     }
     
     func handleMenus(_ result: [String]) {
-        let todayIndex = DateManager.shared.todayIndex()
-        let staffMenu = MenuStorage.shared.dayStaffMenu(dayIndex: todayIndex)
-        let studentMenu = MenuStorage.shared.dayStudentMenu(dayIndex: todayIndex)
+        let todayIndex = dateManager.todayIndex()
+        let staffMenu = menuStorage.dayStaffMenu(dayIndex: todayIndex)
+        let studentMenu = menuStorage.dayStudentMenu(dayIndex: todayIndex)
         
         menuTableView.reloadTable(staffMenu: staffMenu, studentMenu: studentMenu)
     }
@@ -96,8 +99,8 @@ extension ViewController: DateUIViewDelegate {
     }
     
     func updateMenu(index: Int) {
-        let staffMenu = MenuStorage.shared.dayStaffMenu(dayIndex: index)
-        let studentMenu = MenuStorage.shared.dayStudentMenu(dayIndex: index)
+        let staffMenu = menuStorage.dayStaffMenu(dayIndex: index)
+        let studentMenu = menuStorage.dayStudentMenu(dayIndex: index)
         
         menuTableView.reloadTable(staffMenu: staffMenu, studentMenu: studentMenu)
     }

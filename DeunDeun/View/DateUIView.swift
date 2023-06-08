@@ -16,9 +16,10 @@ final class DateUIView: UIView {
     
     //weak, AnyObject 사용 이유
     weak var delegate: DateUIViewDelegate?
+    private let dateManager = DateManager.shared
     
     private let days = ["월", "화", "수", "목", "금"]
-    private lazy var dates = DateManager.shared.weekDate()
+    private lazy var dates = dateManager.weekDate()
     
     //월화수목금 UILabel 생성
     private lazy var dayLabels: [UILabel] = days.map {
@@ -138,7 +139,7 @@ extension DateUIView {
             dateButtons[i].tag = i
         }
         
-        let todayIndex = DateManager.shared.todayIndex()
+        let todayIndex = dateManager.todayIndex()
         defaultButtonTapped(todayIndex: todayIndex)
     }
     
@@ -162,19 +163,19 @@ extension DateUIView {
     
     @objc
     func dayChanged(_ notification: Notification) {
-        let today = DateManager.shared.today()
+        let today = dateManager.today()
         
         if today == "일" || today == "월" {
             //dates buttons 날짜 모두 업데이트
-            let dates = DateManager.shared.weekDate()
+            let dates = dateManager.weekDate()
             updateDateButtons(dates: dates)
             
             //모든 식단 데이터 다시 가져와서 오늘 날짜로 테이블 뷰 업데이트
-            let startEndDate = DateManager.shared.startEndDate()
+            let startEndDate = dateManager.startEndDate()
             delegate?.renewWeekData(parameter: startEndDate)
         } else {
             //오늘 날짜로 date button selected
-            let todayIndex = DateManager.shared.todayIndex()
+            let todayIndex = dateManager.todayIndex()
             defaultButtonTapped(todayIndex: todayIndex)
             
             //오늘 날짜 식단 보여주기

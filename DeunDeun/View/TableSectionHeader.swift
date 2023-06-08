@@ -7,19 +7,19 @@
 
 import UIKit
 
-class TableSectionHeader: UITableViewHeaderFooterView {
+final class TableSectionHeader: UITableViewHeaderFooterView {
     
-    let restaurants = ["교직원 식당", "학생 식당"]
-    let hours = ["(11:30 - 13:00)", "(11:00 - 14:00)"]
+    private let restaurants = ["교직원 식당", "학생 식당"]
+    private let hours = ["(11:30 - 13:00)", "(11:00 - 14:00)"]
     
-    private lazy var restaurantName: UILabel = {
+    private let restaurantName: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .white
         return label
     }()
     
-    private lazy var operatingHours: UILabel = {
+    private let operatingHours: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.textColor = .white
@@ -34,18 +34,18 @@ class TableSectionHeader: UITableViewHeaderFooterView {
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
+}
+
+extension TableSectionHeader {
     func configureSectionHeader(with type: Int) {
         restaurantName.text = restaurants[type]
         operatingHours.text = hours[type]
     }
-}
-
-extension TableSectionHeader {
+    
     private func configureSubviews() {
-        [restaurantName, operatingHours].forEach { component in
-            contentView.addSubview(component)
-            component.translatesAutoresizingMaskIntoConstraints = false
+        [restaurantName, operatingHours].forEach {
+            contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         let restaurantNameConstraints = [
